@@ -25,16 +25,16 @@
 >将数组降序排序后，如果citations[*i*]>*i*，说明第0到第*i*篇文章都至少被引用了*i*+1次，所以只要遍历数组，找到满足citations[*i*]>*i*的最大的*i*，则*h*=*i*+1。
 ```
 //Java
-public class Solution {
-    public int hIndex(int[] citations) {
-        // 排序
-        Arrays.sort(citations);
-        int i = 0;
-        while (i < citations.length && citations[citations.length - 1 - i] > i) {
-            i++;
-        }
-        return i;
+class Solution {
+  public int hIndex(int[] citations) {
+    Arrays.sort(citations);
+    int n = citations.length;
+    for(int i=0;i<n;i++) {
+      if (citations[i] >= n - i) 
+            return n - i;
     }
+    return 0;
+  }
 }
 
 ```
