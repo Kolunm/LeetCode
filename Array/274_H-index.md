@@ -43,3 +43,28 @@ class Solution {
 - 空间复杂度：*O*(1)。
 ### **方法二：计数**
 >这种方法没太看懂，详见[官方解法](https://leetcode-cn.com/problems/h-index/solution/hzhi-shu-by-leetcode/)。
+
+### **方法三：二分法**
+>这种方法实际上即为第[275题（H指数II）](https://leetcode-cn.com/problems/h-index-ii/)的解法，这道题为本题的进阶版，给定已经升序排列好的数组，要求优化算法到***对数***时间复杂度。原本的线性遍历法时间复杂度为*O*(*n*)，那么我们采用二分法便可达到题目要求，具体实现如下。
+```
+//Java
+class Solution {
+  public int hIndex(int[] citations) {
+    int low = 0, high = citations.length-1;
+    int n = citations.length;
+    while(low<=high){
+        int mid = (high-low)/2 + low;
+        if(citations[mid]==n-mid)   
+            return n-mid;
+        else if(citations[mid]<n-mid)
+            low = mid+1;
+        else
+            high = mid-1;
+    }
+    return n - low;
+  }
+}
+```
+## **复杂度分析**
+- 时间复杂度：*O*(log*N*)
+- 空间复杂度：*O*(1)
